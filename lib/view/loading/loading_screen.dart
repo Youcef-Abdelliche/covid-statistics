@@ -1,30 +1,16 @@
-import 'dart:async';
-import 'package:covid_statistics/services/covid_service.dart';
+
 import 'package:covid_statistics/size_config.dart';
-import 'package:covid_statistics/view/home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
-}
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    });
-  }
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    return Scaffold(
-        body: Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -43,6 +29,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           )
         ],
       ),
-    ));
+    );
   }
 }
+

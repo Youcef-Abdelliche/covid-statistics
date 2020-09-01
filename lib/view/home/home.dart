@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../size_config.dart';
 import 'components/body.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -6,13 +6,16 @@ import 'package:http/http.dart' as http;
 class CovidService {
   
   // methods
-  Future<WorldStatistics> getCovidWorldStatistics() async {
+  Future getCovidWorldStatistics() async {
     final response = await http.get("https://disease.sh/v3/covid-19/all");
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       print("Status: 200 OK");
-      return WorldStatistics.fromJson(json.decode(response.body));
+      WorldStatistics statistics =
+          WorldStatistics.fromJson(json.decode(response.body));
+      return statistics;
+      
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -20,7 +23,7 @@ class CovidService {
     }
   }
 
-  Future<List<CountryStatistics>> getCovidCountriesStatistics() async {
+  Future getCovidCountriesStatistics() async {
     final response = await http.get("https://disease.sh/v3/covid-19/countries");
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
