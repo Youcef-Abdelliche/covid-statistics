@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:covid_statistics/helpers/connectivity_handler.dart';
 import 'package:covid_statistics/models/country_statistics.dart';
 import 'package:covid_statistics/models/world_statistics.dart';
@@ -43,14 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         coutriesList = list;
       });
-    }); 
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     if (worldStatistics != null && coutriesList != null && isInternetAvailable)
       return Scaffold(
+ 
         backgroundColor: Colors.white,
+      
         appBar: AppBar(
           leading: IconButton(
               icon: Icon(
@@ -69,7 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.notifications,
                       color: Colors.yellow[600],
                     ),
-                    onPressed: () {}))
+                    onPressed: () {
+                      
+                    }))
           ],
         ),
         body: Body(
