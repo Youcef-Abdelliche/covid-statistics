@@ -1,12 +1,9 @@
 /*import 'package:covid_statistics/models/country_statistics.dart';*/
 
-import 'dart:convert';
-
 import 'package:covid_statistics/models/country_statistics.dart';
 import 'package:covid_statistics/models/world_statistics.dart';
-import 'package:covid_statistics/services/covid_service.dart';
+
 import 'package:covid_statistics/size_config.dart';
-import 'package:covid_statistics/view/loading/loading_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'category/category_row1.dart';
@@ -166,6 +163,8 @@ class _BodyState extends State<Body> {
                 padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(16)),
                 child: Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: getProportionateScreenWidth(10)),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -182,31 +181,236 @@ class _BodyState extends State<Body> {
                       child: Column(
                         children: List.generate(
                             widget.coutriesList.length,
-                            (index) => ExpansionTile(
-                                  title: Row(
-                                    children: [
-                                      Image.network(
-                                        widget.coutriesList[index].flagUrl,
-                                        height:
-                                            getProportionateScreenHeight(40),
-                                        width: getProportionateScreenWidth(40),
-                                      ),
-                                      SizedBox(
+                            (index) => Container(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            getProportionateScreenWidth(16)),
+                                    child: Row(
+                                      children: [
+                                        Image.network(
+                                          widget.coutriesList[index].flagUrl,
+                                          height:
+                                              getProportionateScreenHeight(40),
                                           width:
-                                              getProportionateScreenWidth(10)),
-                                      (widget.coutriesList[index].name.length <
-                                              15)
-                                          ? Text(
-                                              widget.coutriesList[index].name)
-                                          : Text(widget.coutriesList[index].name
-                                                  .substring(0, 15) +
-                                              "...")
-                                    ],
+                                              getProportionateScreenWidth(40),
+                                        ),
+                                        SizedBox(
+                                            width: getProportionateScreenWidth(
+                                                10)),
+                                        GestureDetector(
+                                          child: (widget.coutriesList[index]
+                                                      .name.length <
+                                                  15)
+                                              ? Text(
+                                                  widget
+                                                      .coutriesList[index].name,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getProportionateScreenHeight(
+                                                              20)),
+                                                )
+                                              : Text(
+                                                  widget.coutriesList[index]
+                                                          .name
+                                                          .substring(0, 15) +
+                                                      "...",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getProportionateScreenHeight(
+                                                              20))),
+                                          onTap: () {
+                                            showDialog(
+                                                context: (context),
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    backgroundColor:
+                                                        Colors.grey[50],
+                                                    title: ListTile(
+                                                      leading: Image.network(
+                                                        widget
+                                                            .coutriesList[index]
+                                                            .flagUrl,
+                                                        height:
+                                                            getProportionateScreenHeight(
+                                                                40),
+                                                        width:
+                                                            getProportionateScreenWidth(
+                                                                40),
+                                                      ),
+                                                      title: Text(widget
+                                                          .coutriesList[index]
+                                                          .name),
+                                                    ),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        ListTile(
+                                                          leading: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Center(
+                                                                child:
+                                                                    Container(
+                                                                        height:
+                                                                            10,
+                                                                        width:
+                                                                            10,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(20),
+                                                                            color: Color(0xffffbd4c),
+                                                                            boxShadow: [
+                                                                              BoxShadow(color: Color(0xffffbd4c).withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3) // changes position of shadow
+                                                                                  )
+                                                                            ])),
+                                                              ),
+                                                              Center(
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(left: 8),
+                                                                      child: Text(
+                                                                        'Confirmed:',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xffffbd4c)),
+                                                                      )))
+                                                            ],
+                                                          ),
+                                                          title: Text(widget
+                                                              .coutriesList[
+                                                                  index]
+                                                              .totalCases
+                                                              .toString()),
+                                                        ),
+                                                        ListTile(
+                                                          leading: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Center(
+                                                                child:
+                                                                    Container(
+                                                                        height:
+                                                                            10,
+                                                                        width:
+                                                                            10,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(20),
+                                                                            color: Color(0xffff5959),
+                                                                            boxShadow: [
+                                                                              BoxShadow(color: Color(0xffff5959).withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3) // changes position of shadow
+                                                                                  )
+                                                                            ])),
+                                                              ),
+                                                              Center(
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(left: 8),
+                                                                      child: Text(
+                                                                        'Deaths:',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xffff5959)),
+                                                                      )))
+                                                            ],
+                                                          ),
+                                                          title: Text(widget
+                                                              .coutriesList[
+                                                                  index]
+                                                              .totalDeaths
+                                                              .toString()),
+                                                        ),
+                                                        ListTile(
+                                                          leading: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Center(
+                                                                child:
+                                                                    Container(
+                                                                        height:
+                                                                            10,
+                                                                        width:
+                                                                            10,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(20),
+                                                                            color: Color(0xff4cd97b),
+                                                                            boxShadow: [
+                                                                              BoxShadow(color: Color(0xff4cd97b).withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3) // changes position of shadow
+                                                                                  )
+                                                                            ])),
+                                                              ),
+                                                              Center(
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(left: 8),
+                                                                      child: Text(
+                                                                        'Recovered:',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xff4cd97b)),
+                                                                      )))
+                                                            ],
+                                                          ),
+                                                          title: Text(widget
+                                                              .coutriesList[
+                                                                  index]
+                                                              .totalRecovered
+                                                              .toString()),
+                                                        ),
+                                                        ListTile(
+                                                          leading: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Center(
+                                                                child:
+                                                                    Container(
+                                                                        height:
+                                                                            10,
+                                                                        width:
+                                                                            10,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(20),
+                                                                            color: Color(0xff4cb5ff),
+                                                                            boxShadow: [
+                                                                              BoxShadow(color: Color(0xff4cb5ff).withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3) // changes position of shadow
+                                                                                  )
+                                                                            ])),
+                                                              ),
+                                                              Center(
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(left: 8),
+                                                                      child: Text(
+                                                                        'Active:',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xff4cb5ff)),
+                                                                      )))
+                                                            ],
+                                                          ),
+                                                          title: Text(widget
+                                                              .coutriesList[
+                                                                  index]
+                                                              .active
+                                                              .toString()),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                });
+                                          },
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  children: [
-                                    Text(widget.coutriesList[index].newCases
-                                        .toString())
-                                  ],
                                 )),
                       ),
                     )),

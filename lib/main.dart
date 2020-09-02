@@ -1,4 +1,4 @@
-import 'package:covid_statistics/view/home/home.dart';
+
 import 'package:covid_statistics/view/loading/welcome.dart';
 import 'package:flutter/material.dart';
 

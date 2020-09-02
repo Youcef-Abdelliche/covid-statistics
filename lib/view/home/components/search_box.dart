@@ -1,4 +1,4 @@
-import 'package:covid_statistics/services/covid_service.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:covid_statistics/helpers/connectivity_handler.dart';
 import 'package:covid_statistics/models/country_statistics.dart';
 import 'package:covid_statistics/models/world_statistics.dart';
@@ -17,10 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CountryStatistics> coutriesList;
 
   bool isInternetAvailable = false;
+  int time = 1;
 
   @override
   void initState() {
     super.initState();
+
+    /*Timer.periodic(Duration(seconds: time), (Timer t) {
+      time = 10;
+      
+    });*/
     ConnectivityHandler.checkConnectivity().then((value) {
       setState(() {
         isInternetAvailable = value;
@@ -35,15 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         coutriesList = list;
       });
-    });
-    
+    }); 
   }
 
   @override
   Widget build(BuildContext context) {
-    if (worldStatistics != null &&
-        coutriesList != null &&
-        isInternetAvailable)
+    if (worldStatistics != null && coutriesList != null && isInternetAvailable)
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
