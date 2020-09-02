@@ -14,17 +14,17 @@ import 'category/category_row2.dart';
 import 'search_box.dart';
 
 class Body extends StatefulWidget {
-   final WorldStatistics worldStatistics;
+  final WorldStatistics worldStatistics;
   final List<CountryStatistics> coutriesList;
 
-  const Body({Key key, this.worldStatistics, this.coutriesList}) : super(key: key);
+  const Body({Key key, this.worldStatistics, this.coutriesList})
+      : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
- 
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _BodyState extends State<Body> {
                           currentPage = value;
                         });
                       },
-                      children: [
+                      children: <Widget>[
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: getProportionateScreenWidth(16)),
@@ -89,7 +89,8 @@ class _BodyState extends State<Body> {
                                 children: [
                                   CategoryConatiner2(
                                       text: "Recovered",
-                                      number: widget.worldStatistics.totalRecovered,
+                                      number:
+                                          widget.worldStatistics.totalRecovered,
                                       color: Color(0xff4cd97b)),
                                   CategoryConatiner2(
                                       text: "Active",
@@ -178,7 +179,7 @@ class _BodyState extends State<Body> {
                         ]),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                                          child: Column(
+                      child: Column(
                         children: List.generate(
                             widget.coutriesList.length,
                             (index) => ExpansionTile(
@@ -186,21 +187,25 @@ class _BodyState extends State<Body> {
                                     children: [
                                       Image.network(
                                         widget.coutriesList[index].flagUrl,
-                                        height: getProportionateScreenHeight(40),
+                                        height:
+                                            getProportionateScreenHeight(40),
                                         width: getProportionateScreenWidth(40),
                                       ),
                                       SizedBox(
-                                          width: getProportionateScreenWidth(10)),
-                                      (widget.coutriesList[index].name.length < 15)
-                                          ? Text(widget.coutriesList[index].name)
-                                          : Text(widget.coutriesList[index]
-                                                  .name
+                                          width:
+                                              getProportionateScreenWidth(10)),
+                                      (widget.coutriesList[index].name.length <
+                                              15)
+                                          ? Text(
+                                              widget.coutriesList[index].name)
+                                          : Text(widget.coutriesList[index].name
                                                   .substring(0, 15) +
                                               "...")
                                     ],
                                   ),
                                   children: [
-                                    Text(widget.coutriesList[index].newCases.toString())
+                                    Text(widget.coutriesList[index].newCases
+                                        .toString())
                                   ],
                                 )),
                       ),

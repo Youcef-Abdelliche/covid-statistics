@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class CovidService {
   
   // methods
-  Future getCovidWorldStatistics() async {
+  static Future getCovidWorldStatistics() async {
     final response = await http.get("https://disease.sh/v3/covid-19/all");
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -23,7 +23,7 @@ class CovidService {
     }
   }
 
-  Future getCovidCountriesStatistics() async {
+  static Future getCovidCountriesStatistics() async {
     final response = await http.get("https://disease.sh/v3/covid-19/countries");
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,

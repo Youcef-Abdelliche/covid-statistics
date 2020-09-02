@@ -1,3 +1,4 @@
+import 'package:covid_statistics/helpers/connectivity_handler.dart';
 import 'package:covid_statistics/models/country_statistics.dart';
 import 'package:covid_statistics/models/world_statistics.dart';
 import 'package:covid_statistics/services/covid_service.dart';
@@ -15,24 +16,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<CountryStatistics> coutriesList;
 
+  bool isInternetAvailable = false;
+
   @override
   void initState() {
     super.initState();
-    CovidService().getCovidWorldStatistics().then((statistics) {
+    ConnectivityHandler.checkConnectivity().then((value) {
+      setState(() {
+        isInternetAvailable = value;
+      });
+    });
+    CovidService.getCovidWorldStatistics().then((statistics) {
       setState(() {
         worldStatistics = statistics;
       });
     });
-    CovidService().getCovidCountriesStatistics().then((list) {
+    CovidService.getCovidCountriesStatistics().then((list) {
       setState(() {
         coutriesList = list;
       });
     });
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    if (worldStatistics != null && coutriesList != null)
+    if (worldStatistics != null &&
+        coutriesList != null &&
+        isInternetAvailable)
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -61,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
           worldStatistics: worldStatistics,
         ),
       );
-    else
+    else if (!isInternetAvailable) {
+      return Scaffold(body: Center(child: Text("No internet")));
+    } else
       return Scaffold(body: LoadingScreen());
   }
 }
