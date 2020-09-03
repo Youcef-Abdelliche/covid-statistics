@@ -1,16 +1,17 @@
 # covid_statistics
 
-A new Flutter project.
+Covid Statistics is a mobile application developed with flutter.
+- It provides all the statistics about covid 19 and the countries affedcted by the virus.
 
-## Getting Started
+## Inspiration ui:
+https://assets.materialup.com/uploads/79cba610-6007-422e-a4a0-218de3951b29/preview.png
 
-This project is a starting point for a Flutter application.
+## Api Used:
+https://corona.lmao.ninja/
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ScreenShots:
+<img src="https://github.com/Youcef-Abdelliche/covid-statistics/blob/master/screenshots/img1.jpg" height="600" width="400">
+<img src="https://github.com/Youcef-Abdelliche/covid-statistics/blob/master/screenshots/img2.jpg" height="600" width="400">
+<img src="https://github.com/Youcef-Abdelliche/covid-statistics/blob/master/screenshots/img3.jpg" height="600" width="400">
+<img src="https://github.com/Youcef-Abdelliche/covid-statistics/blob/master/screenshots/img4.jpg" height="600" width="400">
+<img src="https://github.com/Youcef-Abdelliche/covid-statistics/blob/master/screenshots/img5.jpg" height="600" width="400">
