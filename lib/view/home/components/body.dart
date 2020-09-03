@@ -9,7 +9,6 @@ import 'package:covid_statistics/view/search/search.dart';
 import 'package:flutter/material.dart';
 import 'category/category_row1.dart';
 import 'category/category_row2.dart';
-import 'search_box.dart';
 
 class Body extends StatefulWidget {
   final WorldStatistics worldStatistics;
@@ -25,14 +24,15 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   int currentPage2 = 0;
   List<CountryStatistics> countriesList;
-
-  String text = "Global Statistics";
+  bool isGlobalSelected = true;
+  bool isAlgeriaSelected = false;
+  CountryStatistics algeria;
+  String text = "Total";
   @override
   void initState() {
     super.initState();
     setState(() {
-      countriesList = List.generate(
-          widget.coutriesList.length, (index) => widget.coutriesList[index]);
+      algeria = widget.coutriesList[2];
       widget.coutriesList.sort((a, b) => b.totalCases.compareTo(a.totalCases));
     });
   }
@@ -47,19 +47,47 @@ class _BodyState extends State<Body> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchBox(countriesList: countriesList),
+              //SearchBox(countriesList: countriesList),
               Container(
                 padding: EdgeInsets.only(
                     left: getProportionateScreenWidth(16),
                     right: getProportionateScreenWidth(16),
                     top: getProportionateScreenHeight(5),
                     bottom: getProportionateScreenHeight(10)),
-                child: Text(text,
+                child: Text("Statistics",
                     style: TextStyle(
                         fontSize: getProportionateScreenHeight(18),
                         fontWeight: FontWeight.bold,
                         color: Color(0xff1c2d71))),
               ),
+              Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(16)),
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                    color: Color(0xffe3e2ef),
+                    borderRadius: BorderRadius.circular(30)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    (isGlobalSelected)
+                        ? SelectedContainer(
+                            text: "Global",
+                          )
+                        : NotSelectedContainer(
+                            text: "Global",
+                          ),
+                    (isAlgeriaSelected)
+                        ? SelectedContainer(
+                            text: "Algeria",
+                          )
+                        : NotSelectedContainer(
+                            text: "Algeria",
+                          ),
+                  ],
+                ),
+              ),
+              SizedBox(height: getProportionateScreenHeight(10)),
               Column(
                 children: [
                   SizedBox(
@@ -68,9 +96,17 @@ class _BodyState extends State<Body> {
                       onPageChanged: (value) {
                         setState(() {
                           currentPage = value;
-                          print("current page: " + currentPage.toString());
-                          if (value == 0) text = "Global Statistics";
-                          if (value == 1) text = "Today's Statistics";
+                          if (value == 0) {
+                            isGlobalSelected = true;
+                            isAlgeriaSelected = false;
+                          }
+                          if (value == 1) {
+                            isGlobalSelected = false;
+                            isAlgeriaSelected = true;
+                          }
+                          //print("current page: " + currentPage.toString());
+                          //if (value == 0) text = "Global Statistics";
+                          //if (value == 1) text = "Today's Statistics";
                         });
                       },
                       children: <Widget>[
@@ -126,6 +162,53 @@ class _BodyState extends State<Body> {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: getProportionateScreenWidth(16)),
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CategoryContainer(
+                                      text: "Confirmed",
+                                      number: algeria.totalCases,
+                                      color: Color(0xffffbd4c),
+                                    ),
+                                    CategoryContainer(
+                                      text: "Death",
+                                      number: algeria.totalDeaths,
+                                      color: Color(0xffff5959),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(10),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CategoryConatiner2(
+                                        text: "Recovered",
+                                        number: algeria.totalRecovered,
+                                        color: Color(0xff4cd97b)),
+                                    CategoryConatiner2(
+                                        text: "Active",
+                                        number: algeria.active,
+                                        color: Color(0xff4cb5ff)),
+                                    CategoryConatiner2(
+                                        text: "Critical",
+                                        number: algeria.critical,
+                                        color: Color(0xff8359ff))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        /*Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(16)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -143,7 +226,7 @@ class _BodyState extends State<Body> {
                                   color: Color(0xff4cd97b))
                             ],
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
@@ -417,6 +500,48 @@ class _BodyState extends State<Body> {
             title: Text(widget.coutriesList[index].active.toString()),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class NotSelectedContainer extends StatelessWidget {
+  final String text;
+  const NotSelectedContainer({Key key, this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: getProportionateScreenHeight(18)),
+        ),
+      ),
+    );
+  }
+}
+
+class SelectedContainer extends StatelessWidget {
+  final String text;
+  const SelectedContainer({Key key, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(30)),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xff1c2d71),
+                fontSize: getProportionateScreenHeight(18)),
+          ),
+        ),
       ),
     );
   }
