@@ -4,7 +4,6 @@ import 'package:covid_statistics/models/world_statistics.dart';
 import 'package:http/http.dart' as http;
 
 class CovidService {
-  
   // methods
   static Future getCovidWorldStatistics() async {
     final response = await http.get("https://disease.sh/v3/covid-19/all");
@@ -15,7 +14,6 @@ class CovidService {
       WorldStatistics statistics =
           WorldStatistics.fromJson(json.decode(response.body));
       return statistics;
-      
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -37,6 +35,7 @@ class CovidService {
               updated: item['updated'],
               name: item['country'],
               flagUrl: item['countryInfo']['flag'],
+              continent: item['continent'],
               totalCases: item['cases'],
               newCases: item['todayCases'],
               totalDeaths: item['deaths'],

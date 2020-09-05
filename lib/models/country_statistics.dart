@@ -2,6 +2,7 @@ class CountryStatistics {
   final int updated;
   final String name;
   final String flagUrl;
+  final String continent;
   final int totalCases;
   final int newCases;
   final int totalDeaths;
@@ -16,6 +17,7 @@ class CountryStatistics {
     this.updated,
     this.name,
     this.flagUrl,
+    this.continent,
     this.totalCases,
     this.newCases,
     this.totalDeaths,
