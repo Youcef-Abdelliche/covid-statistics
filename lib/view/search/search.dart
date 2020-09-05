@@ -57,8 +57,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: TextField(
-                  //textCapitalization: TextCapitalization.characters,
-                  //keyboardType: TextInputType.,
                   controller: editingController,
                   onChanged: (value) {
                     filterSearchResults(value);
@@ -76,13 +74,22 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: List.generate(
                         items.length,
                         (index) => GestureDetector(
-                              child: ListTile(
-                                leading: Image.network(
-                                  items[index].flagUrl,
-                                  height: getProportionateScreenHeight(40),
-                                  width: getProportionateScreenWidth(40),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: getProportionateScreenWidth(14),
+                                    vertical: getProportionateScreenHeight(4)),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: BorderRadius.circular(10)
                                 ),
-                                title: Text(items[index].name),
+                                child: ListTile(
+                                  leading: Image.network(
+                                    items[index].flagUrl,
+                                    height: getProportionateScreenHeight(40),
+                                    width: getProportionateScreenWidth(40),
+                                  ),
+                                  title: Text(items[index].name),
+                                ),
                               ),
                               onTap: () {
                                 showDialog(

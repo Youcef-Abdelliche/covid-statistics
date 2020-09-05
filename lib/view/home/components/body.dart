@@ -47,7 +47,6 @@ class _BodyState extends State<Body> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //SearchBox(countriesList: countriesList),
               Container(
                 padding: EdgeInsets.only(
                     left: getProportionateScreenWidth(16),
@@ -104,9 +103,6 @@ class _BodyState extends State<Body> {
                             isGlobalSelected = false;
                             isAlgeriaSelected = true;
                           }
-                          //print("current page: " + currentPage.toString());
-                          //if (value == 0) text = "Global Statistics";
-                          //if (value == 1) text = "Today's Statistics";
                         });
                       },
                       children: <Widget>[
@@ -230,7 +226,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  Row(
+                  /*Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                           2,
@@ -243,7 +239,7 @@ class _BodyState extends State<Body> {
                                         ? Colors.blue
                                         : Color(0xFFD8D8D8),
                                     borderRadius: BorderRadius.circular(3)),
-                              )))
+                              )))*/
                 ],
               ),
               Row(
@@ -281,9 +277,9 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(10),
-              ),
+             /* SizedBox(
+                height: getProportionateScreenHeight(4),
+              ),*/
               Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: getProportionateScreenWidth(16)),
@@ -345,9 +341,9 @@ class _BodyState extends State<Body> {
                                   ))),
                     ],
                   )),
-              SizedBox(
+              /*SizedBox(
                 height: getProportionateScreenHeight(10),
-              ),
+              ),*/
             ],
           ),
         ),
