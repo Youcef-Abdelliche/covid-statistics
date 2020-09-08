@@ -1,6 +1,5 @@
 import 'package:covid_statistics/models/country_statistics.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 import '../../size_config.dart';
 
@@ -19,6 +18,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   List<CountryStatistics> duplicateItems = [];
   List<CountryStatistics> items = [];
+  String continentName = "All Countries";
+  List<bool> isSelectedList = [true, false, false, false, false, false, false];
 
   @override
   void initState() {
@@ -126,7 +127,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      icon: Icon(Icons.location_on, color: Colors.grey),
+                      icon: Icon(Icons.search, color: Colors.grey),
                       hintText: "Country Name",
                       hintStyle: TextStyle(color: Colors.grey)),
                 ),
@@ -155,48 +156,154 @@ class _SearchScreenState extends State<SearchScreen> {
                         onTap: () {
                           switch (index) {
                             case 0:
+                              setState(() {
+                                continentName = "All Countries";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[0] = true;
+                              });
                               print("global");
                               filterByContinents("global");
                               break;
                             case 1:
+                              setState(() {
+                                continentName = "Africa";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[1] = true;
+                              });
                               print("Africa");
                               filterByContinents("Africa");
                               break;
                             case 2:
+                              setState(() {
+                                continentName = "Asia";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[2] = true;
+                              });
                               print("Asia");
                               filterByContinents("Asia");
                               break;
                             case 3:
+                              setState(() {
+                                continentName = "Australia/Oceania";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[3] = true;
+                              });
                               print("Australia/Oceania");
                               filterByContinents("Australia/Oceania");
                               break;
                             case 4:
+                              setState(() {
+                                continentName = "Europe";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[4] = true;
+                              });
                               print("Europe");
                               filterByContinents("Europe");
                               break;
                             case 5:
-                              print("North America");
+                              setState(() {
+                                continentName = "North America";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[5] = true;
+                              });
+                              print("North ");
                               filterByContinents("North America");
                               break;
                             case 6:
+                              setState(() {
+                                continentName = "South America";
+                                isSelectedList.replaceRange(0, 6, [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ]);
+                                isSelectedList[6] = true;
+                              });
                               print("South America");
                               filterByContinents("South America");
                               break;
                             default:
                           }
                         },
-                        child: Container(
-                          height: getProportionateScreenHeight(60),
-                          width: getProportionateScreenWidth(60),
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset("assets/images/continent" +
-                              index.toString() +
-                              ".png"),
-                        ),
+                        child: (isSelectedList[index])
+                            ? Container(
+                                height: getProportionateScreenHeight(60),
+                                width: getProportionateScreenWidth(60),
+                                padding: EdgeInsets.all(10),
+                                margin: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    color: Color(0xff1c2d71),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Image.asset(
+                                    "assets/images/continent" +
+                                        index.toString() +
+                                        ".png",
+                                    color: Colors.white),
+                              )
+                            : Container(
+                                height: getProportionateScreenHeight(60),
+                                width: getProportionateScreenWidth(60),
+                                padding: EdgeInsets.all(10),
+                                margin: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[50],
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Image.asset("assets/images/continent" +
+                                    index.toString() +
+                                    ".png"),
+                              ),
                       );
                     }),
                   ),
@@ -208,7 +315,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     right: getProportionateScreenWidth(16),
                     top: getProportionateScreenHeight(5),
                     bottom: getProportionateScreenHeight(10)),
-                child: Text("All Countries",
+                child: Text(continentName,
                     style: TextStyle(
                         fontSize: getProportionateScreenHeight(18),
                         fontWeight: FontWeight.bold,
